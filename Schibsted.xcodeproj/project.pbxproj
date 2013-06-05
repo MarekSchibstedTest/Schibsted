@@ -67,6 +67,9 @@
 		0DB8108E175F759600706688 /* MSLogFileTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0DB8108D175F759500706688 /* MSLogFileTableViewController.m */; };
 		0DB81091175F75A800706688 /* MSJsonParserTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0DB81090175F75A800706688 /* MSJsonParserTableViewController.m */; };
 		0DB81094175F75B900706688 /* MSRssReaderTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0DB81093175F75B800706688 /* MSRssReaderTableViewController.m */; };
+		0DB81097175F798900706688 /* MSMainNavigationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0DB81096175F798800706688 /* MSMainNavigationViewController.m */; };
+		0DB8109A175F79A000706688 /* MSMainTabBarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0DB81099175F799F00706688 /* MSMainTabBarViewController.m */; };
+		0DB8109E175F7C0B00706688 /* MSPlaygroundJSONClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 0DB8109D175F7C0B00706688 /* MSPlaygroundJSONClient.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -163,6 +166,12 @@
 		0DB81090175F75A800706688 /* MSJsonParserTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MSJsonParserTableViewController.m; sourceTree = "<group>"; };
 		0DB81092175F75B800706688 /* MSRssReaderTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MSRssReaderTableViewController.h; sourceTree = "<group>"; };
 		0DB81093175F75B800706688 /* MSRssReaderTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MSRssReaderTableViewController.m; sourceTree = "<group>"; };
+		0DB81095175F798800706688 /* MSMainNavigationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MSMainNavigationViewController.h; sourceTree = "<group>"; };
+		0DB81096175F798800706688 /* MSMainNavigationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MSMainNavigationViewController.m; sourceTree = "<group>"; };
+		0DB81098175F799F00706688 /* MSMainTabBarViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MSMainTabBarViewController.h; sourceTree = "<group>"; };
+		0DB81099175F799F00706688 /* MSMainTabBarViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MSMainTabBarViewController.m; sourceTree = "<group>"; };
+		0DB8109C175F7C0B00706688 /* MSPlaygroundJSONClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MSPlaygroundJSONClient.h; sourceTree = "<group>"; };
+		0DB8109D175F7C0B00706688 /* MSPlaygroundJSONClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MSPlaygroundJSONClient.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -291,12 +300,17 @@
 		0DB81009175F677D00706688 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				0DB8109B175F7B9000706688 /* Adapters */,
+				0DB81095175F798800706688 /* MSMainNavigationViewController.h */,
+				0DB81096175F798800706688 /* MSMainNavigationViewController.m */,
+				0DB81098175F799F00706688 /* MSMainTabBarViewController.h */,
+				0DB81099175F799F00706688 /* MSMainTabBarViewController.m */,
 				0DB8108C175F759500706688 /* MSLogFileTableViewController.h */,
 				0DB8108D175F759500706688 /* MSLogFileTableViewController.m */,
-				0DB8108F175F75A800706688 /* MSJsonParserTableViewController.h */,
-				0DB81090175F75A800706688 /* MSJsonParserTableViewController.m */,
 				0DB81092175F75B800706688 /* MSRssReaderTableViewController.h */,
 				0DB81093175F75B800706688 /* MSRssReaderTableViewController.m */,
+				0DB8108F175F75A800706688 /* MSJsonParserTableViewController.h */,
+				0DB81090175F75A800706688 /* MSJsonParserTableViewController.m */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -433,6 +447,15 @@
 			name = "NSDate-TimeAgo";
 			sourceTree = "<group>";
 		};
+		0DB8109B175F7B9000706688 /* Adapters */ = {
+			isa = PBXGroup;
+			children = (
+				0DB8109C175F7C0B00706688 /* MSPlaygroundJSONClient.h */,
+				0DB8109D175F7C0B00706688 /* MSPlaygroundJSONClient.m */,
+			);
+			path = Adapters;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -551,6 +574,9 @@
 				0DB8108E175F759600706688 /* MSLogFileTableViewController.m in Sources */,
 				0DB81091175F75A800706688 /* MSJsonParserTableViewController.m in Sources */,
 				0DB81094175F75B900706688 /* MSRssReaderTableViewController.m in Sources */,
+				0DB81097175F798900706688 /* MSMainNavigationViewController.m in Sources */,
+				0DB8109A175F79A000706688 /* MSMainTabBarViewController.m in Sources */,
+				0DB8109E175F7C0B00706688 /* MSPlaygroundJSONClient.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -7,3 +7,6 @@
 [submodule "Vendor/FlatUIKit"]
 	path = Vendor/FlatUIKit
 	url = git@github.com:Grouper/FlatUIKit.git
+[submodule "Vendor/SVProgressHUD"]
+	path = Vendor/SVProgressHUD
+	url = git@github.com:samvermette/SVProgressHUD.git

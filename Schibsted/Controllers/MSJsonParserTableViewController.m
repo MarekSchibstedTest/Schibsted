@@ -7,8 +7,11 @@
 //
 
 #import "MSJsonParserTableViewController.h"
+#import "MSPlaygroundJSONClient.h"
 
 @interface MSJsonParserTableViewController ()
+
+@property (strong, nonatomic) MSPlaygroundJSONClient *playgroundJSONClient;
 
 @end
 
@@ -19,6 +22,14 @@
     self = [super initWithStyle:style];
     if (self) {
         // Custom initialization
+        [[MSPlaygroundJSONClient sharedClient] getPath: kPlaygroundJsonTestFeed
+                                            parameters: nil
+                                               success: ^(AFHTTPRequestOperation *operation, id responseObject) {
+                                                   
+                                               }
+                                               failure: ^(AFHTTPRequestOperation *operation, NSError *error) {
+                                                   
+                                               }];
     }
     return self;
 }
