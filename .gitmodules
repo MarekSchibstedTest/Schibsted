@@ -1,0 +1,9 @@
+[submodule "Vendor/NSDate-TimeAgo"]
+	path = Vendor/NSDate-TimeAgo
+	url = git@github.com:kevinlawler/NSDate-TimeAgo.git
+[submodule "Vendor/AFNetworking"]
+	path = Vendor/AFNetworking
+	url = git@github.com:AFNetworking/AFNetworking.git
+[submodule "Vendor/FlatUIKit"]
+	path = Vendor/FlatUIKit
+	url = git@github.com:Grouper/FlatUIKit.git
