@@ -7,29 +7,28 @@
 //
 
 #import "MSJsonParserTableViewController.h"
-#import "MSPlaygroundJSONClient.h"
+#import "MSJsonItem.h"
+#import "MSJsonItemCell.h"
+
+#import "MSStyleSheet.h"
+#import "MBProgressHUD.h"
 
 @interface MSJsonParserTableViewController ()
 
-@property (strong, nonatomic) MSPlaygroundJSONClient *playgroundJSONClient;
+- (void)_getLatestPlaygroundJsonTestFeed:(id)sender;
 
 @end
 
 @implementation MSJsonParserTableViewController
-
-- (id)initWithStyle:(UITableViewStyle)style
 {
-    self = [super initWithStyle:style];
-    if (self) {
-        // Custom initialization
-        [[MSPlaygroundJSONClient sharedClient] getPath: kPlaygroundJsonTestFeed
-                                            parameters: nil
-                                               success: ^(AFHTTPRequestOperation *operation, id responseObject) {
-                                                   
-                                               }
-                                               failure: ^(AFHTTPRequestOperation *operation, NSError *error) {
-                                                   
-                                               }];
+    @private
+    BOOL _sortAsc;
+}
+
+- (id)initWithCoder:(NSCoder *)aDecoder
+{
+    if(self = [super initWithCoder:aDecoder]) {
+        _sortAsc = NO;
     }
     return self;
 }
@@ -37,33 +36,97 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-
-    // Uncomment the following line to preserve selection between presentations.
-    // self.clearsSelectionOnViewWillAppear = NO;
- 
-    // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-    // self.navigationItem.rightBarButtonItem = self.editButtonItem;
+    [self _getLatestPlaygroundJsonTestFeed:nil];
 }
 
-- (void)didReceiveMemoryWarning
+- (void)viewWillAppear:(BOOL)animated
 {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+    [super viewWillAppear:animated];
+    self.tabBarController.navigationItem.title = @"Hello JSON!";
+}
+
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    self.tabBarController.navigationItem.rightBarButtonItem = [MSStyleSheet defaultBarButtonItemWithTitle: @"Reload"
+                                                                                                   target: self
+                                                                                                   action: @selector(_getLatestPlaygroundJsonTestFeed:)];
+    
+    self.tabBarController.navigationItem.leftBarButtonItem = [MSStyleSheet defaultBarButtonItemWithTitle: @"Swap Sort"
+                                                                                                  target: self
+                                                                                                  action: @selector(_swapDataSort:)];
+}
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    self.tabBarController.navigationItem.rightBarButtonItem = nil;
+    self.tabBarController.navigationItem.leftBarButtonItem = nil;
+}
+
+- (void)pullToRefreshCallback:(id)sender
+{
+    [super pullToRefreshCallback:sender];
+    [self _getLatestPlaygroundJsonTestFeed:sender];
+}
+
+#pragma mark - MSJsonParserTableViewController (Private)
+
+- (void)_getLatestPlaygroundJsonTestFeed:(id)sender
+{
+    if([sender isMemberOfClass:[UIRefreshControl class]]) {
+        [sender setAttributedTitle:[[NSAttributedString alloc] initWithString:kJsonParserTableViewPullMessageAfter]];
+    } else {
+        [self.progressHUD show:YES];
+    }
+    
+    [MSJsonItem getPlaygroundJsonTestFeedItemsWithBlock:^(NSArray *items, NSError *error) {
+        if([sender isMemberOfClass:[UIRefreshControl class]]) {
+            [self.refreshControl endRefreshing];
+        } else {
+            [self.progressHUD hide:YES];
+        }
+        if(!error) {
+            [self _setTableDataAndSort:items];
+            [self updateLastTimeUpdate];
+        } else {
+            [self showGenericErrorMessage];
+        }
+    }];
+
+}
+
+- (void)_setTableDataAndSort:(NSArray*)items
+{
+    _sortAsc = NO;
+    self.items = [items sortedArrayUsingDescriptors: [NSArray arrayWithObject:
+                                                      [NSSortDescriptor sortDescriptorWithKey: kJsonItemDateKey
+                                                                                    ascending: _sortAsc]]];
+    [self.tableView reloadData];
+}
+
+- (void)_swapDataSort:(id)sender
+{
+    _sortAsc = !_sortAsc;
+    self.items = [self.items sortedArrayUsingDescriptors: [NSArray arrayWithObject:
+                                                           [NSSortDescriptor sortDescriptorWithKey: kJsonItemDateKey
+                                                                                         ascending: _sortAsc]]];
+    [self.tableView reloadSections: [NSIndexSet indexSetWithIndex:0]
+                  withRowAnimation: UITableViewRowAnimationFade];
 }
 
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-#warning Potentially incomplete method implementation.
-    // Return the number of sections.
-    return 0;
+    return 1;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-#warning Incomplete method implementation.
-    // Return the number of rows in the section.
+    if(section == 0) {
+        return [self.items count];
+    }
     return 0;
 }
 
@@ -72,61 +135,20 @@
     static NSString *CellIdentifier = @"Cell";
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
     
-    // Configure the cell...
+    MSJsonItem *item = [self.items objectAtIndex:indexPath.row];
+    
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    [dateFormatter setDateFormat:@"dd MMM YYYY, HH:mm:ss"];
+    
+    NSString *date = [NSString stringWithFormat:@"Date: %@, Category: %@",
+                      [dateFormatter stringFromDate:[item date]],
+                      (![item category] ? @"None" : [item category])];
+    
+    [[(MSJsonItemCell*)cell titleLabel] setText:[item title]];
+    [[(MSJsonItemCell*)cell descLabel] setText:[item desc]];
+    [[(MSJsonItemCell*)cell dateLabel] setText:date];
     
     return cell;
-}
-
-/*
-// Override to support conditional editing of the table view.
-- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    // Return NO if you do not want the specified item to be editable.
-    return YES;
-}
-*/
-
-/*
-// Override to support editing the table view.
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    if (editingStyle == UITableViewCellEditingStyleDelete) {
-        // Delete the row from the data source
-        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
-    }   
-    else if (editingStyle == UITableViewCellEditingStyleInsert) {
-        // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-    }   
-}
-*/
-
-/*
-// Override to support rearranging the table view.
-- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath
-{
-}
-*/
-
-/*
-// Override to support conditional rearranging of the table view.
-- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    // Return NO if you do not want the item to be re-orderable.
-    return YES;
-}
-*/
-
-#pragma mark - Table view delegate
-
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    // Navigation logic may go here. Create and push another view controller.
-    /*
-     <#DetailViewController#> *detailViewController = [[<#DetailViewController#> alloc] initWithNibName:@"<#Nib name#>" bundle:nil];
-     // ...
-     // Pass the selected object to the new view controller.
-     [self.navigationController pushViewController:detailViewController animated:YES];
-     */
 }
 
 @end

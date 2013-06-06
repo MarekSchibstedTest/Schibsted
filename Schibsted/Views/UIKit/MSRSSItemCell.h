@@ -10,4 +10,7 @@
 
 @interface MSRSSItemCell : UITableViewCell
 
+@property (strong, nonatomic) UILabel *titleLabel;
+@property (strong, nonatomic) UILabel *dateLabel;
+
 @end

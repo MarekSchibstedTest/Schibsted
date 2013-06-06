@@ -7,7 +7,25 @@
 //
 
 #import "MSNavigator.h"
+#import "MSMainNavigationViewController.h"
+#import "MSWebViewController.h"
+
+NSString * const kWebViewControllerIdentifier = @"WebView";
 
 @implementation MSNavigator
+
++ (UINavigationController*)webViewControllerWithUrl:(NSURL*)url
+{
+    NSString *storyboardName = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"UIMainStoryboardFile"];
+    UIStoryboard *storyboard = [UIStoryboard storyboardWithName: storyboardName
+                                                         bundle: nil];
+    
+    MSWebViewController *webViewController = [storyboard instantiateViewControllerWithIdentifier:@"WebView"];
+    [webViewController loadUrl:url];
+    
+    MSMainNavigationViewController *navigationController = [[MSMainNavigationViewController alloc] initWithRootViewController: webViewController];
+    
+    return navigationController;
+}
 
 @end

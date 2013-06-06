@@ -7,7 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "MSAbstractTableViewController.h"
 
-@interface MSRssReaderTableViewController : UITableViewController
+extern NSString * const kRSSFeedURL;
+
+@interface MSRssReaderTableViewController : MSAbstractTableViewController
 
 @end

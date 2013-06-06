@@ -13,6 +13,3 @@
 [submodule "Vendor/APParallaxHeader"]
 	path = Vendor/APParallaxHeader
 	url = git@github.com:apping/APParallaxHeader.git
-[submodule "Vendor/BlockRSSParser"]
-	path = Vendor/BlockRSSParser
-	url = git@github.com:tiboll/BlockRSSParser.git

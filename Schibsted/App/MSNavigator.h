@@ -10,4 +10,6 @@
 
 @interface MSNavigator : NSObject
 
++ (UINavigationController*)webViewControllerWithUrl:(NSURL*)url;
+
 @end

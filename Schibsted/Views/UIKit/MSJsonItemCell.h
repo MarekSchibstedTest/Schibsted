@@ -10,4 +10,8 @@
 
 @interface MSJsonItemCell : UITableViewCell
 
+@property (strong, nonatomic) UILabel *titleLabel;
+@property (strong, nonatomic) UILabel *descLabel;
+@property (strong, nonatomic) UILabel *dateLabel;
+
 @end

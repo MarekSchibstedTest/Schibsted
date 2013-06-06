@@ -8,17 +8,22 @@
 
 #import "MSAbstractTableViewController.h"
 
+#import "MSStyleSheet.h"
+#import "MBProgressHUD.h"
+
+NSString * const kJsonParserTableViewPullMessageBefore = @"Pull, just a little bit more!";
+NSString * const kJsonParserTableViewPullMessageAfter = @"Yeeeah! Now please wait...";
+
 @interface MSAbstractTableViewController ()
 
 @end
 
 @implementation MSAbstractTableViewController
 
-- (id)initWithStyle:(UITableViewStyle)style
+- (id)initWithCoder:(NSCoder *)aDecoder
 {
-    self = [super initWithStyle:style];
-    if (self) {
-        // Custom initialization
+    if(self = [super initWithCoder:aDecoder]) {
+        self.items = [NSArray array];
     }
     return self;
 }
@@ -27,11 +32,7 @@
 {
     [super viewDidLoad];
 
-    // Uncomment the following line to preserve selection between presentations.
-    // self.clearsSelectionOnViewWillAppear = NO;
- 
-    // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-    // self.navigationItem.rightBarButtonItem = self.editButtonItem;
+    [self setupPullToRefresh];
 }
 
 - (void)didReceiveMemoryWarning
@@ -40,82 +41,49 @@
     // Dispose of any resources that can be recreated.
 }
 
-#pragma mark - Table view data source
-
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+- (MBProgressHUD*)progressHUD
 {
-#warning Potentially incomplete method implementation.
-    // Return the number of sections.
-    return 0;
+    if(_progressHUD == nil) {
+        _progressHUD = [MBProgressHUD showHUDAddedTo: self.view
+                                            animated: NO];
+        _progressHUD.animationType = MBProgressHUDAnimationZoom;
+        [_progressHUD hide:NO];
+    }
+    return _progressHUD;
 }
 
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+- (void)updateLastTimeUpdate
 {
-#warning Incomplete method implementation.
-    // Return the number of rows in the section.
-    return 0;
-}
-
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    static NSString *CellIdentifier = @"Cell";
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    [dateFormatter setDateFormat:@"dd MMM YYYY, HH:mm:ss"];
     
-    // Configure the cell...
+    NSString *lastUpdateOn = [NSString stringWithFormat:@"Last update on %@",
+                              [dateFormatter stringFromDate:[NSDate date]]];
     
-    return cell;
+    [self.refreshControl setAttributedTitle:[[NSAttributedString alloc] initWithString: lastUpdateOn]];
 }
 
-/*
-// Override to support conditional editing of the table view.
-- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
+- (void)showGenericErrorMessage
 {
-    // Return NO if you do not want the specified item to be editable.
-    return YES;
+    [MSStyleSheet showGenericAlertErrorMessageWithTitle: @"Error"
+                                                message: @"Dude! No internet? C'mon its 2013!"];
 }
-*/
 
-/*
-// Override to support editing the table view.
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
+- (void)setupPullToRefresh
 {
-    if (editingStyle == UITableViewCellEditingStyleDelete) {
-        // Delete the row from the data source
-        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
-    }   
-    else if (editingStyle == UITableViewCellEditingStyleInsert) {
-        // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-    }   
+    UIRefreshControl *refreshControl = [[UIRefreshControl alloc] init];
+    refreshControl.tintColor = [MSStyleSheet navigationBarBackgroundColor];
+    refreshControl.attributedTitle = [[NSAttributedString alloc] initWithString:kJsonParserTableViewPullMessageBefore];
+    [refreshControl addTarget:self
+                       action:@selector(pullToRefreshCallback:)
+             forControlEvents:UIControlEventValueChanged];
+    
+    self.refreshControl = refreshControl;
 }
-*/
 
-/*
-// Override to support rearranging the table view.
-- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath
+- (void)pullToRefreshCallback:(id)sender
 {
-}
-*/
-
-/*
-// Override to support conditional rearranging of the table view.
-- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    // Return NO if you do not want the item to be re-orderable.
-    return YES;
-}
-*/
-
-#pragma mark - Table view delegate
-
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    // Navigation logic may go here. Create and push another view controller.
-    /*
-     <#DetailViewController#> *detailViewController = [[<#DetailViewController#> alloc] initWithNibName:@"<#Nib name#>" bundle:nil];
-     // ...
-     // Pass the selected object to the new view controller.
-     [self.navigationController pushViewController:detailViewController animated:YES];
-     */
+    
 }
 
 @end

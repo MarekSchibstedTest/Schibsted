@@ -7,6 +7,9 @@
 //
 
 #import "MSMainNavigationViewController.h"
+#import "UINavigationBar+FlatUI.h"
+#import "UIColor+FlatUI.h"
+#import "MSStyleSheet.h"
 
 @interface MSMainNavigationViewController ()
 
@@ -14,25 +17,27 @@
 
 @implementation MSMainNavigationViewController
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
+- (id)initWithCoder:(NSCoder *)aDecoder
 {
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-        // Custom initialization
+    if(self = [super initWithCoder: aDecoder]) {
+        [self _configureNavBar];
     }
     return self;
 }
 
-- (void)viewDidLoad
+- (id)initWithRootViewController:(UIViewController *)rootViewController
 {
-    [super viewDidLoad];
-	// Do any additional setup after loading the view.
+    if(self = [super initWithRootViewController: rootViewController]) {
+        [self _configureNavBar];
+    }
+    return self;
 }
 
-- (void)didReceiveMemoryWarning
+#pragma mark - MSMainNavigationViewController (Private)
+
+- (void)_configureNavBar
 {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+    [self.navigationBar configureFlatNavigationBarWithColor:[MSStyleSheet navigationBarBackgroundColor]];
 }
 
 @end

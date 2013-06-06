@@ -4,7 +4,7 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="2083"/>
     </dependencies>
     <scenes>
-        <!--Log File Table View Controller - Log-->
+        <!--Log File Table View Controller - LOG-->
         <scene sceneID="kZn-RX-Yc7">
             <objects>
                 <tableViewController id="GHm-yJ-O61" customClass="MSLogFileTableViewController" sceneMemberID="viewController">
@@ -28,7 +28,7 @@
                             <outlet property="delegate" destination="GHm-yJ-O61" id="wyj-fs-VUv"/>
                         </connections>
                     </tableView>
-                    <tabBarItem key="tabBarItem" title="Log" id="jdw-NN-cMT"/>
+                    <tabBarItem key="tabBarItem" title="LOG" image="face-cptamerica.png" id="jdw-NN-cMT"/>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="uoS-KG-zfc" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -38,16 +38,16 @@
         <scene sceneID="1KF-rr-PdE">
             <objects>
                 <tableViewController id="BM6-aX-FAb" customClass="MSRssReaderTableViewController" sceneMemberID="viewController">
-                    <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="oPb-d2-Xli">
+                    <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="56" sectionHeaderHeight="22" sectionFooterHeight="22" id="oPb-d2-Xli">
                         <rect key="frame" x="0.0" y="64" width="320" height="455"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="DD8-r9-dX2">
-                                <rect key="frame" x="0.0" y="22" width="320" height="44"/>
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="Cell" rowHeight="56" id="DD8-r9-dX2" customClass="MSRSSItemCell">
+                                <rect key="frame" x="0.0" y="22" width="320" height="56"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                                    <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="320" height="55"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 </view>
@@ -58,7 +58,7 @@
                             <outlet property="delegate" destination="BM6-aX-FAb" id="CcJ-jO-jZ0"/>
                         </connections>
                     </tableView>
-                    <tabBarItem key="tabBarItem" title="RSS" id="ELu-Ec-72B"/>
+                    <tabBarItem key="tabBarItem" title="RSS" image="face-ironman.png" id="ELu-Ec-72B"/>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Icz-6N-AfA" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -68,16 +68,16 @@
         <scene sceneID="DcM-o3-6qB">
             <objects>
                 <tableViewController id="9KK-b9-pZJ" customClass="MSJsonParserTableViewController" sceneMemberID="viewController">
-                    <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="G9A-Ts-6hg">
+                    <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="68" sectionHeaderHeight="22" sectionFooterHeight="22" id="G9A-Ts-6hg">
                         <rect key="frame" x="0.0" y="64" width="320" height="455"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="sje-0y-dmR">
-                                <rect key="frame" x="0.0" y="22" width="320" height="44"/>
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="Cell" rowHeight="68" id="sje-0y-dmR" customClass="MSJsonItemCell">
+                                <rect key="frame" x="0.0" y="22" width="320" height="68"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                                    <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="320" height="67"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 </view>
@@ -88,7 +88,7 @@
                             <outlet property="delegate" destination="9KK-b9-pZJ" id="Y6Z-qe-Ugu"/>
                         </connections>
                     </tableView>
-                    <tabBarItem key="tabBarItem" title="JSON" id="Sic-Q4-ySR"/>
+                    <tabBarItem key="tabBarItem" title="JSON" image="face-wolverine.png" id="Sic-Q4-ySR"/>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="pr3-FE-vzO" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -130,9 +130,52 @@
             </objects>
             <point key="canvasLocation" x="132" y="180"/>
         </scene>
+        <!--Web View Controller-->
+        <scene sceneID="OkC-Pa-CMy">
+            <objects>
+                <viewController storyboardIdentifier="WebView" id="FdQ-Ag-LEi" customClass="MSWebViewController" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="gzO-MB-pIs">
+                        <rect key="frame" x="0.0" y="20" width="320" height="548"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <webView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="pA6-lw-1dk">
+                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" relation="lessThanOrEqual" constant="548" type="user" id="3vS-SH-4Fr"/>
+                                </constraints>
+                            </webView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="pA6-lw-1dk" firstAttribute="trailing" secondItem="gzO-MB-pIs" secondAttribute="trailing" type="default" id="9xr-z8-zTT"/>
+                            <constraint firstItem="pA6-lw-1dk" firstAttribute="bottom" secondItem="gzO-MB-pIs" secondAttribute="bottom" type="default" id="JaK-Ab-OCB"/>
+                            <constraint firstItem="pA6-lw-1dk" firstAttribute="leading" secondItem="gzO-MB-pIs" secondAttribute="leading" type="default" id="qcO-NU-PdN"/>
+                            <constraint firstItem="pA6-lw-1dk" firstAttribute="top" secondItem="gzO-MB-pIs" secondAttribute="top" type="default" id="uS6-WD-eTJ"/>
+                        </constraints>
+                    </view>
+                    <nil key="simulatedTopBarMetrics"/>
+                    <connections>
+                        <outlet property="webView" destination="pA6-lw-1dk" id="7do-ja-Nig"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="JmB-2u-SCE" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-349" y="904"/>
+        </scene>
     </scenes>
+    <resources>
+        <image name="face-cptamerica.png" width="32" height="32"/>
+        <image name="face-ironman.png" width="32" height="32"/>
+        <image name="face-wolverine.png" width="32" height="32"/>
+    </resources>
     <classes>
-        <class className="MSJsonParserTableViewController" superclassName="UITableViewController">
+        <class className="MSAbstractTableViewController" superclassName="UITableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/MSAbstractTableViewController.h"/>
+        </class>
+        <class className="MSJsonItemCell" superclassName="UITableViewCell">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/MSJsonItemCell.h"/>
+        </class>
+        <class className="MSJsonParserTableViewController" superclassName="MSAbstractTableViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/MSJsonParserTableViewController.h"/>
         </class>
         <class className="MSLogFileTableViewController" superclassName="UITableViewController">
@@ -144,8 +187,20 @@
         <class className="MSMainTabBarViewController" superclassName="UITabBarController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/MSMainTabBarViewController.h"/>
         </class>
-        <class className="MSRssReaderTableViewController" superclassName="UITableViewController">
+        <class className="MSRSSItemCell" superclassName="UITableViewCell">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/MSRSSItemCell.h"/>
+        </class>
+        <class className="MSRssReaderTableViewController" superclassName="MSAbstractTableViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/MSRssReaderTableViewController.h"/>
+        </class>
+        <class className="MSWebViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/MSWebViewController.h"/>
+            <relationships>
+                <relationship kind="outlet" name="webView" candidateClass="UIWebView"/>
+            </relationships>
+        </class>
+        <class className="NSLayoutConstraint" superclassName="NSObject">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/NSLayoutConstraint.h"/>
         </class>
     </classes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">

@@ -7,6 +7,7 @@
 //
 
 #import "MSMainTabBarViewController.h"
+#import "MSStyleSheet.h"
 
 @interface MSMainTabBarViewController ()
 
@@ -14,25 +15,26 @@
 
 @implementation MSMainTabBarViewController
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
+- (id)initWithCoder:(NSCoder *)aDecoder
 {
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-        // Custom initialization
+    if(self = [super initWithCoder:aDecoder]) {
+        [self.tabBar setBackgroundImage:[MSStyleSheet solidColorImageWithSize: self.tabBar.bounds.size
+                                                                     andColor: [MSStyleSheet tabBarBackgroundColor]]];
+        
+        NSDictionary *icons = @{
+                                @"MSLogFileTableViewController": @"face-cptamerica",
+                                @"MSRssReaderTableViewController": @"face-ironman",
+                                @"MSJsonParserTableViewController": @"face-wolverine"};
+        
+        for(UIViewController *controller in self.viewControllers)
+        {
+            NSString *iconName = icons[NSStringFromClass([controller class])];
+            
+            [controller.tabBarItem setFinishedSelectedImage: [UIImage imageNamed: iconName]
+                                withFinishedUnselectedImage: [UIImage imageNamed: [iconName stringByAppendingFormat:@"-us"]]];
+        }
     }
     return self;
-}
-
-- (void)viewDidLoad
-{
-    [super viewDidLoad];
-	// Do any additional setup after loading the view.
-}
-
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
 
 @end

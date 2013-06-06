@@ -10,4 +10,8 @@
 
 @interface MSWebViewController : UIViewController
 
+@property (strong, nonatomic) IBOutlet UIWebView *webView;
+
+- (void)loadUrl:(NSURL*)url;
+
 @end

@@ -7,7 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "MSAbstractTableViewController.h"
 
-@interface MSJsonParserTableViewController : UITableViewController
+@interface MSJsonParserTableViewController : MSAbstractTableViewController
 
 @end

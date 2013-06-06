@@ -7,32 +7,63 @@
 //
 
 #import "MSWebViewController.h"
+#import "MSStyleSheet.h"
 
-@interface MSWebViewController ()
+@interface MSWebViewController () <UIWebViewDelegate>
+
+@property (copy, nonatomic) NSURL *urlToLoad;
 
 @end
 
 @implementation MSWebViewController
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-        // Custom initialization
-    }
-    return self;
-}
-
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-	// Do any additional setup after loading the view.
+    self.navigationItem.title = @"Loading ...";
+    self.navigationItem.rightBarButtonItem = [MSStyleSheet defaultBarButtonItemWithTitle: @"Close"
+                                                                                  target: self
+                                                                                  action: @selector(dismiss:)];
+    
+    self.navigationItem.leftBarButtonItem = [MSStyleSheet defaultBarButtonItemWithTitle: @"Safari"
+                                                                                  target: self
+                                                                                  action: @selector(openInSafari:)];
+    self.webView.delegate = self;
+    
 }
 
-- (void)didReceiveMemoryWarning
+- (void)viewDidAppear:(BOOL)animated
 {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+    [super viewDidAppear:animated];
+    if(self.urlToLoad != nil) {
+        [self.webView loadRequest: [NSURLRequest requestWithURL:self.urlToLoad]];
+    }
+}
+
+- (void)loadUrl:(NSURL*)url
+{
+    self.urlToLoad = url;
+}
+
+#pragma mark - UIWebViewDelegate
+
+- (void)webViewDidFinishLoad:(UIWebView *)webView
+{
+    NSString* title = [webView stringByEvaluatingJavaScriptFromString: @"document.title"];
+    self.navigationItem.title = title;
+}
+
+#pragma mark - MSWebViewController (Private)
+
+- (void)dismiss:(id)sender
+{
+    [self dismissViewControllerAnimated:YES
+                             completion:nil];
+}
+
+- (void)openInSafari:(id)sender
+{
+    [[UIApplication sharedApplication] openURL: self.urlToLoad];
 }
 
 @end
