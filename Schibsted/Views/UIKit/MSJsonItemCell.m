@@ -20,9 +20,9 @@
     return self;
 }
 
-- (void)layoutSubviews
+- (void)awakeFromNib
 {
-    [super layoutSubviews];
+    [super awakeFromNib];
     [self _setupAutoLayout];
 }
 

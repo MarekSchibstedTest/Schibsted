@@ -20,7 +20,7 @@ NSString * const kWebViewControllerIdentifier = @"WebView";
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName: storyboardName
                                                          bundle: nil];
     
-    MSWebViewController *webViewController = [storyboard instantiateViewControllerWithIdentifier:@"WebView"];
+    MSWebViewController *webViewController = [storyboard instantiateViewControllerWithIdentifier: kWebViewControllerIdentifier];
     [webViewController loadUrl:url];
     
     MSMainNavigationViewController *navigationController = [[MSMainNavigationViewController alloc] initWithRootViewController: webViewController];

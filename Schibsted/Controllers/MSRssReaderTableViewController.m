@@ -8,7 +8,7 @@
 
 #import "MSRssReaderTableViewController.h"
 #import "MSRSSParser.h"
-#import "MSRSSItemCell.h"
+#import "MSSimpleCell.h"
 
 #import "NSDate+TimeAgo.h"
 #import "UIScrollView+APParallaxHeader.h"
@@ -53,24 +53,24 @@ static CGFloat const kDefaultTableHeaderHeight = 120.0;
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    self.tabBarController.navigationItem.title = @"RSS is old :)";
+    self.tabBarController.navigationItem.title = NSLocalizedString(@"RSS is old :)", nil);
 }
 
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
-    self.tabBarController.navigationItem.rightBarButtonItem = [MSStyleSheet defaultBarButtonItemWithTitle: @"Reload"
+    self.tabBarController.navigationItem.rightBarButtonItem = [MSStyleSheet defaultBarButtonItemWithTitle: NSLocalizedString(@"Reload", nil)
                                                                                                    target: self
                                                                                                    action: @selector(_getLatestRSSFeed:)];
     
-    self.tabBarController.navigationItem.leftBarButtonItem = [MSStyleSheet defaultBarButtonItemWithTitle: kNavBarButtonTextIndex
+    self.tabBarController.navigationItem.leftBarButtonItem = [MSStyleSheet defaultBarButtonItemWithTitle: NSLocalizedString(kNavBarButtonTextIndex, nil)
                                                                                                   target: self
                                                                                                   action: @selector(_swapDataSort:)];
 }
 
-- (void)viewWillDisappear:(BOOL)animated
+- (void)viewDidDisappear:(BOOL)animated
 {
-    [super viewWillDisappear:animated];
+    [super viewDidDisappear:animated];
     self.tabBarController.navigationItem.rightBarButtonItem = nil;
     self.tabBarController.navigationItem.leftBarButtonItem = nil;
 }
@@ -90,7 +90,7 @@ static CGFloat const kDefaultTableHeaderHeight = 120.0;
     NSURLRequest *rssRequest = [[NSURLRequest alloc] initWithURL:[NSURL URLWithString: kRSSFeedURL]];
     [MSRSSParser parseRSSFeedForRequest:rssRequest success:^(NSArray *feedItems,NSDictionary *channelInfo) {
         _sortIndex = YES;
-        self.tabBarController.navigationItem.leftBarButtonItem.title = kNavBarButtonTextIndex;
+        self.tabBarController.navigationItem.leftBarButtonItem.title = NSLocalizedString(kNavBarButtonTextIndex, nil);
         [self _setChannelInfoElements: channelInfo];
         [self _setTableDataAndSort:feedItems];
         [self.progressHUD hide:YES];
@@ -118,7 +118,7 @@ static CGFloat const kDefaultTableHeaderHeight = 120.0;
 - (void)_swapDataSort:(id)sender
 {
     _sortIndex = !_sortIndex;
-    self.tabBarController.navigationItem.leftBarButtonItem.title = (!_sortIndex ? kNavBarButtonTextDate : kNavBarButtonTextIndex);
+    self.tabBarController.navigationItem.leftBarButtonItem.title = NSLocalizedString((!_sortIndex ? kNavBarButtonTextDate : kNavBarButtonTextIndex), nil);
     self.items = [self.items sortedArrayUsingDescriptors: [NSArray arrayWithObject:
                                                            [NSSortDescriptor sortDescriptorWithKey: (!_sortIndex ? kRSSItemDateKey : kRSSItemIndexKey)
                                                                                          ascending: (!_sortIndex ? NO : YES)]]];
@@ -144,12 +144,13 @@ static CGFloat const kDefaultTableHeaderHeight = 120.0;
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     static NSString *CellIdentifier = @"Cell";
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier: CellIdentifier
+                                                            forIndexPath: indexPath];
     
     MSRSSItem *item = [self.items objectAtIndex:indexPath.row];
     
-    [[(MSRSSItemCell*)cell titleLabel] setText:item.title];
-    [[(MSRSSItemCell*)cell dateLabel] setText:[item.pubDate timeAgo]];
+    [[(MSSimpleCell*)cell titleLabel] setText:item.title];
+    [[(MSSimpleCell*)cell descLabel] setText:[item.pubDate timeAgo]];
     
     return cell;
 }

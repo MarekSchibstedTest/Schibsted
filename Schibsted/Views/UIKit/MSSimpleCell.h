@@ -8,9 +8,9 @@
 
 #import <UIKit/UIKit.h>
 
-@interface MSRSSItemCell : UITableViewCell
+@interface MSSimpleCell : UITableViewCell
 
 @property (strong, nonatomic) UILabel *titleLabel;
-@property (strong, nonatomic) UILabel *dateLabel;
+@property (strong, nonatomic) UILabel *descLabel;
 
 @end

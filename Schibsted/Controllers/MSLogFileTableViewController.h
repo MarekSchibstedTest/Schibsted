@@ -7,7 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "MSAbstractTableViewController.h"
 
-@interface MSLogFileTableViewController : UITableViewController
+@interface MSLogFileTableViewController : MSAbstractTableViewController
 
 @end

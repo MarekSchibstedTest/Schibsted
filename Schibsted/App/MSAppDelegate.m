@@ -9,11 +9,16 @@
 #import "MSAppDelegate.h"
 #import "MSStyleSheet.h"
 
+NSString * const kModelName = @"SchibstedModel";
+NSString * const kDatabaseName = @"schibsted_database";
+
 @implementation MSAppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     [MSStyleSheet setupAppearance];
+    [[CoreDataManager instance] setModelName: kModelName];
+    [[CoreDataManager instance] setDatabaseName: kDatabaseName];
     // Override point for customization after application launch.
     return YES;
 }

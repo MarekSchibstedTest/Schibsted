@@ -57,7 +57,7 @@ NSString * const kJsonParserTableViewPullMessageAfter = @"Yeeeah! Now please wai
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
     [dateFormatter setDateFormat:@"dd MMM YYYY, HH:mm:ss"];
     
-    NSString *lastUpdateOn = [NSString stringWithFormat:@"Last update on %@",
+    NSString *lastUpdateOn = [NSString stringWithFormat: NSLocalizedString(@"Last update on %@", nil),
                               [dateFormatter stringFromDate:[NSDate date]]];
     
     [self.refreshControl setAttributedTitle:[[NSAttributedString alloc] initWithString: lastUpdateOn]];
@@ -65,15 +65,15 @@ NSString * const kJsonParserTableViewPullMessageAfter = @"Yeeeah! Now please wai
 
 - (void)showGenericErrorMessage
 {
-    [MSStyleSheet showGenericAlertErrorMessageWithTitle: @"Error"
-                                                message: @"Dude! No internet? C'mon its 2013!"];
+    [MSStyleSheet showGenericAlertErrorMessageWithTitle: NSLocalizedString(@"Error", nil)
+                                                message: NSLocalizedString(@"Dude! No internet? C'mon its 2013!", nil)];
 }
 
 - (void)setupPullToRefresh
 {
     UIRefreshControl *refreshControl = [[UIRefreshControl alloc] init];
     refreshControl.tintColor = [MSStyleSheet navigationBarBackgroundColor];
-    refreshControl.attributedTitle = [[NSAttributedString alloc] initWithString:kJsonParserTableViewPullMessageBefore];
+    refreshControl.attributedTitle = [[NSAttributedString alloc] initWithString: NSLocalizedString(kJsonParserTableViewPullMessageBefore, nil)];
     [refreshControl addTarget:self
                        action:@selector(pullToRefreshCallback:)
              forControlEvents:UIControlEventValueChanged];

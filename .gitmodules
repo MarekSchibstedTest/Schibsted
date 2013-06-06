@@ -13,3 +13,9 @@
 [submodule "Vendor/APParallaxHeader"]
 	path = Vendor/APParallaxHeader
 	url = git@github.com:apping/APParallaxHeader.git
+[submodule "Vendor/ObjectiveRecord"]
+	path = Vendor/ObjectiveRecord
+	url = git@github.com:mneorr/ObjectiveRecord.git
+[submodule "Vendor/ObjectiveSugar"]
+	path = Vendor/ObjectiveSugar
+	url = git@github.com:mneorr/ObjectiveSugar.git

@@ -1,0 +1,28 @@
+/* 
+  Localizable.strings
+  Schibsted
+
+  Created by Marek Serafin on 6/6/13.
+  Copyright (c) 2013 Marek Serafin. All rights reserved.
+*/
+
+"Loading ..." = "Loading ...";
+"Close" = "Close";
+"Safari" = "Safari";
+"Date: %@, Category: %@" = "Date: %@, Category: %@";
+"None" = "None";
+"Swap Sort" = "Swap Sort";
+"Reload" = "Reload";
+"Hello JSON!" = "Hello JSON!";
+"Index Sort" = "Index Sort";
+"Date Sort" = "Date Sort";
+"RSS is old :)" = "RSS is old :)";
+"Lumberjack" = "Lumberjack";
+"Dude! No internet? C'mon its 2013!" = "Dude! No internet? C'mon its 2013!";
+"Error" = "Error";
+"Last update on %@" = "Last update on %@";
+"Pull, just a little bit more!" = "Pull, just a little bit more!";
+"Yeeeah! Now please wait..." = "Yeeeah! Now please wait...";
+"Importing logs ..." = "Importing logs ...";
+"Requests count: %@" = "Requests count: %@";
+"Top Files (%@)" = "Top Files (%@)";

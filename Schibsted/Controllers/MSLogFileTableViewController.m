@@ -7,8 +7,16 @@
 //
 
 #import "MSLogFileTableViewController.h"
+#import "MSLogParser.h"
+#import "MSLogItem.h"
 
-@interface MSLogFileTableViewController ()
+#import "MSSimpleCell.h"
+#import "MBProgressHUD.h"
+#import "MSLogDetailViewController.h"
+
+NSString * const kVarnishLogName = @"varnish.log";
+
+@interface MSLogFileTableViewController () <NSFetchedResultsControllerDelegate>
 
 @end
 
@@ -26,97 +34,91 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-
+    self.refreshControl = nil;
+    
+    [self _importLogFileIntoCoreDataAndDisplay];
 }
 
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    self.tabBarController.navigationItem.title = @"Lumberjack";
+    self.tabBarController.navigationItem.title = NSLocalizedString(@"Lumberjack", nil);
 }
 
-- (void)didReceiveMemoryWarning
+#pragma mark - MSLogFileTableViewController (Private)
+
+- (void)_importLogFileIntoCoreDataAndDisplay
 {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    
+    if(![[defaults objectForKey: kVarnishLogName] boolValue]) {
+        [self.progressHUD show:YES];
+        [self.progressHUD setLabelText: NSLocalizedString(@"Importing logs ...", nil)];
+        [MSLogParser importLogFileWithName: kVarnishLogName
+                                     block: ^(BOOL status) {
+                                         [defaults setBool:YES
+                                                    forKey:kVarnishLogName];
+                                         [defaults synchronize];
+                                         [self _fetchAndReloadData];
+                                         [self.progressHUD hide:YES];
+                                         [self.progressHUD setLabelText: nil];
+                                     }];
+    } else {
+        [self _fetchAndReloadData];
+    }
+}
+
+- (void)_fetchAndReloadData
+{
+    [MSLogItem getDistinctHostsOrderedByRequestsWithBlock:^(NSArray *items, NSError *error) {
+        if(!error) {
+            self.items = items;
+            [self.tableView reloadData];
+        } else {
+            [self showGenericErrorMessage];
+        }
+    }];
 }
 
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-#warning Potentially incomplete method implementation.
-    // Return the number of sections.
-    return 0;
+    return 1;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-#warning Incomplete method implementation.
-    // Return the number of rows in the section.
+    if(section == 0) {
+        return [self.items count];
+    }
     return 0;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     static NSString *CellIdentifier = @"Cell";
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier: CellIdentifier
+                                                            forIndexPath: indexPath];
+
+    NSDictionary *item = [self.items objectAtIndex:indexPath.row];
     
-    // Configure the cell...
-    
+    [[(MSSimpleCell*)cell titleLabel] setText:[item objectForKey: kRequestedHostKey]];
+    [[(MSSimpleCell*)cell descLabel] setText:[NSString stringWithFormat: NSLocalizedString(@"Requests count: %@", nil),
+                                              [item objectForKey: kRequestedCountKey]]];
     return cell;
 }
 
-/*
-// Override to support conditional editing of the table view.
-- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    // Return NO if you do not want the specified item to be editable.
-    return YES;
-}
-*/
-
-/*
-// Override to support editing the table view.
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    if (editingStyle == UITableViewCellEditingStyleDelete) {
-        // Delete the row from the data source
-        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
-    }   
-    else if (editingStyle == UITableViewCellEditingStyleInsert) {
-        // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-    }   
-}
-*/
-
-/*
-// Override to support rearranging the table view.
-- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath
-{
-}
-*/
-
-/*
-// Override to support conditional rearranging of the table view.
-- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    // Return NO if you do not want the item to be re-orderable.
-    return YES;
-}
-*/
 
 #pragma mark - Table view delegate
 
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+- (void)prepareForSegue:(UIStoryboardSegue *)segue
+                 sender:(id)sender
 {
-    // Navigation logic may go here. Create and push another view controller.
-    /*
-     <#DetailViewController#> *detailViewController = [[<#DetailViewController#> alloc] initWithNibName:@"<#Nib name#>" bundle:nil];
-     // ...
-     // Pass the selected object to the new view controller.
-     [self.navigationController pushViewController:detailViewController animated:YES];
-     */
+    NSIndexPath *indexPath = [self.tableView indexPathForSelectedRow];
+    NSDictionary *item = [self.items objectAtIndex:indexPath.row];
+    
+    [(MSLogDetailViewController*)segue.destinationViewController setCurrentHost: [item objectForKey: kRequestedHostKey]];
 }
 
 @end

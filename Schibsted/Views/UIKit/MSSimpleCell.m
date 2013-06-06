@@ -6,11 +6,11 @@
 //  Copyright (c) 2013 Marek Serafin. All rights reserved.
 //
 
-#import "MSRSSItemCell.h"
+#import "MSSimpleCell.h"
 #import "MSStyleSheet.h"
 #import "UIColor+FlatUI.h"
 
-@implementation MSRSSItemCell
+@implementation MSSimpleCell
 
 - (id)initWithCoder:(NSCoder *)aDecoder
 {
@@ -21,61 +21,52 @@
     return self;
 }
 
-- (void)layoutSubviews
+- (void)awakeFromNib
 {
-    [super layoutSubviews];
+    [super awakeFromNib];
     [self _setupAutoLayout];
 }
 
-- (void)setSelected:(BOOL)selected animated:(BOOL)animated
-{
-    [super setSelected:selected animated:animated];
-    if(selected) {
-        _titleLabel.textColor = [UIColor cloudsColor];
-        _dateLabel.textColor = [UIColor wetAsphaltColor];
-    } else {
-        _titleLabel.textColor = [MSStyleSheet defaultCellTitleTextColor];
-        _dateLabel.textColor = [MSStyleSheet defaultCellDateTextColor];
-    }
-        
-}
 
 #pragma mark - MSRSSItemCell (Private)
 
 - (void)_setupViewElements
 {
     self.titleLabel = [[UILabel alloc] initWithFrame:CGRectZero];
-    self.dateLabel = [[UILabel alloc] initWithFrame:CGRectZero];
+    self.descLabel = [[UILabel alloc] initWithFrame:CGRectZero];
     
     [self.contentView addSubview:_titleLabel];
-    [self.contentView addSubview:_dateLabel];
+    [self.contentView addSubview:_descLabel];
     
     _titleLabel.font = [MSStyleSheet defaultCellTitleFont];
-    _dateLabel.font = [MSStyleSheet defaultCellBigDateFont];
+    _descLabel.font = [MSStyleSheet defaultCellBigDateFont];
     
     _titleLabel.textColor = [MSStyleSheet defaultCellTitleTextColor];
-    _dateLabel.textColor = [MSStyleSheet defaultCellDateTextColor];
+    _descLabel.textColor = [MSStyleSheet defaultCellDateTextColor];
+    
+    _titleLabel.highlightedTextColor = [UIColor cloudsColor];
+    _descLabel.highlightedTextColor = [UIColor wetAsphaltColor];
 }
 
 - (void)_setupAutoLayout
 {
     _titleLabel.translatesAutoresizingMaskIntoConstraints = NO;
-    _dateLabel.translatesAutoresizingMaskIntoConstraints = NO;
+    _descLabel.translatesAutoresizingMaskIntoConstraints = NO;
     
-    [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat: @"V:|-5-[_titleLabel(>=20)]-5-[_dateLabel(15)]-5-|"
+    [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat: @"V:|-5-[_titleLabel(>=20)]-5-[_descLabel(15)]-5-|"
                                                                  options: 0
                                                                  metrics: nil
-                                                                   views: NSDictionaryOfVariableBindings(_titleLabel, _dateLabel)]];
+                                                                   views: NSDictionaryOfVariableBindings(_titleLabel, _descLabel)]];
     
     [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat: @"|-10-[_titleLabel(>=1)]-10-|"
                                                                  options: 0
                                                                  metrics: nil
                                                                    views: NSDictionaryOfVariableBindings(_titleLabel)]];
     
-    [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat: @"|-10-[_dateLabel(>=1)]-10-|"
+    [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat: @"|-10-[_descLabel(>=1)]-10-|"
                                                                  options: 0
                                                                  metrics: nil
-                                                                   views: NSDictionaryOfVariableBindings(_dateLabel)]];
+                                                                   views: NSDictionaryOfVariableBindings(_descLabel)]];
     
 }
 

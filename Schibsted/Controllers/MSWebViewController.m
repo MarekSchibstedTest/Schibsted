@@ -20,12 +20,12 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    self.navigationItem.title = @"Loading ...";
-    self.navigationItem.rightBarButtonItem = [MSStyleSheet defaultBarButtonItemWithTitle: @"Close"
+    self.navigationItem.title = NSLocalizedString(@"Loading ...", nil);
+    self.navigationItem.rightBarButtonItem = [MSStyleSheet defaultBarButtonItemWithTitle: NSLocalizedString(@"Close", nil)
                                                                                   target: self
                                                                                   action: @selector(dismiss:)];
     
-    self.navigationItem.leftBarButtonItem = [MSStyleSheet defaultBarButtonItemWithTitle: @"Safari"
+    self.navigationItem.leftBarButtonItem = [MSStyleSheet defaultBarButtonItemWithTitle: NSLocalizedString(@"Safari", nil)
                                                                                   target: self
                                                                                   action: @selector(openInSafari:)];
     self.webView.delegate = self;

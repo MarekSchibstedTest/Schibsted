@@ -8,19 +8,22 @@
         <scene sceneID="kZn-RX-Yc7">
             <objects>
                 <tableViewController id="GHm-yJ-O61" customClass="MSLogFileTableViewController" sceneMemberID="viewController">
-                    <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="oQj-tt-s7H">
+                    <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="60" sectionHeaderHeight="22" sectionFooterHeight="22" id="oQj-tt-s7H">
                         <rect key="frame" x="0.0" y="64" width="320" height="455"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="c8s-Yc-usQ">
-                                <rect key="frame" x="0.0" y="22" width="320" height="44"/>
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="Cell" rowHeight="56" id="c8s-Yc-usQ" customClass="MSSimpleCell">
+                                <rect key="frame" x="0.0" y="22" width="320" height="56"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                                    <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="300" height="55"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 </view>
+                                <connections>
+                                    <segue destination="7CJ-Ua-NXR" kind="push" id="DFE-gh-8Te"/>
+                                </connections>
                             </tableViewCell>
                         </prototypes>
                         <connections>
@@ -34,6 +37,36 @@
             </objects>
             <point key="canvasLocation" x="892" y="-517"/>
         </scene>
+        <!--Log Detail View Controller-->
+        <scene sceneID="xer-Cz-zbD">
+            <objects>
+                <tableViewController id="7CJ-Ua-NXR" customClass="MSLogDetailViewController" sceneMemberID="viewController">
+                    <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="56" sectionHeaderHeight="22" sectionFooterHeight="22" id="aYm-Om-nAZ">
+                        <rect key="frame" x="0.0" y="64" width="320" height="455"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <prototypes>
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="Cell" rowHeight="56" id="dfC-VS-WBV" customClass="MSSimpleCell">
+                                <rect key="frame" x="0.0" y="22" width="320" height="56"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                    <rect key="frame" x="0.0" y="0.0" width="320" height="55"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                </view>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="7CJ-Ua-NXR" id="SaW-Wc-5gp"/>
+                            <outlet property="delegate" destination="7CJ-Ua-NXR" id="43L-pN-ZHS"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" id="F9A-eN-xr7"/>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Ywp-GY-db3" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1372" y="-517"/>
+        </scene>
         <!--Rss Reader Table View Controller - RSS-->
         <scene sceneID="1KF-rr-PdE">
             <objects>
@@ -43,7 +76,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="Cell" rowHeight="56" id="DD8-r9-dX2" customClass="MSRSSItemCell">
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="Cell" rowHeight="56" id="DD8-r9-dX2" customClass="MSSimpleCell">
                                 <rect key="frame" x="0.0" y="22" width="320" height="56"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
@@ -178,7 +211,10 @@
         <class className="MSJsonParserTableViewController" superclassName="MSAbstractTableViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/MSJsonParserTableViewController.h"/>
         </class>
-        <class className="MSLogFileTableViewController" superclassName="UITableViewController">
+        <class className="MSLogDetailViewController" superclassName="MSAbstractTableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/MSLogDetailViewController.h"/>
+        </class>
+        <class className="MSLogFileTableViewController" superclassName="MSAbstractTableViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/MSLogFileTableViewController.h"/>
         </class>
         <class className="MSMainNavigationViewController" superclassName="UINavigationController">
@@ -187,11 +223,11 @@
         <class className="MSMainTabBarViewController" superclassName="UITabBarController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/MSMainTabBarViewController.h"/>
         </class>
-        <class className="MSRSSItemCell" superclassName="UITableViewCell">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/MSRSSItemCell.h"/>
-        </class>
         <class className="MSRssReaderTableViewController" superclassName="MSAbstractTableViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/MSRssReaderTableViewController.h"/>
+        </class>
+        <class className="MSSimpleCell" superclassName="UITableViewCell">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/MSSimpleCell.h"/>
         </class>
         <class className="MSWebViewController" superclassName="UIViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/MSWebViewController.h"/>

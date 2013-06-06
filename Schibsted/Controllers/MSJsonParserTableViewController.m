@@ -15,8 +15,6 @@
 
 @interface MSJsonParserTableViewController ()
 
-- (void)_getLatestPlaygroundJsonTestFeed:(id)sender;
-
 @end
 
 @implementation MSJsonParserTableViewController
@@ -42,24 +40,24 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    self.tabBarController.navigationItem.title = @"Hello JSON!";
+    self.tabBarController.navigationItem.title = NSLocalizedString(@"Hello JSON!", nil);
 }
 
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
-    self.tabBarController.navigationItem.rightBarButtonItem = [MSStyleSheet defaultBarButtonItemWithTitle: @"Reload"
+    self.tabBarController.navigationItem.rightBarButtonItem = [MSStyleSheet defaultBarButtonItemWithTitle: NSLocalizedString(@"Reload", nil)
                                                                                                    target: self
                                                                                                    action: @selector(_getLatestPlaygroundJsonTestFeed:)];
     
-    self.tabBarController.navigationItem.leftBarButtonItem = [MSStyleSheet defaultBarButtonItemWithTitle: @"Swap Sort"
+    self.tabBarController.navigationItem.leftBarButtonItem = [MSStyleSheet defaultBarButtonItemWithTitle: NSLocalizedString(@"Swap Sort", nil)
                                                                                                   target: self
                                                                                                   action: @selector(_swapDataSort:)];
 }
 
-- (void)viewWillDisappear:(BOOL)animated
+- (void)viewDidDisappear:(BOOL)animated
 {
-    [super viewWillDisappear:animated];
+    [super viewDidDisappear:animated];
     self.tabBarController.navigationItem.rightBarButtonItem = nil;
     self.tabBarController.navigationItem.leftBarButtonItem = nil;
 }
@@ -75,7 +73,7 @@
 - (void)_getLatestPlaygroundJsonTestFeed:(id)sender
 {
     if([sender isMemberOfClass:[UIRefreshControl class]]) {
-        [sender setAttributedTitle:[[NSAttributedString alloc] initWithString:kJsonParserTableViewPullMessageAfter]];
+        [sender setAttributedTitle:[[NSAttributedString alloc] initWithString: NSLocalizedString(kJsonParserTableViewPullMessageAfter, nil)]];
     } else {
         [self.progressHUD show:YES];
     }
@@ -133,16 +131,17 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     static NSString *CellIdentifier = @"Cell";
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier: CellIdentifier
+                                                            forIndexPath: indexPath];
     
     MSJsonItem *item = [self.items objectAtIndex:indexPath.row];
     
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
     [dateFormatter setDateFormat:@"dd MMM YYYY, HH:mm:ss"];
     
-    NSString *date = [NSString stringWithFormat:@"Date: %@, Category: %@",
+    NSString *date = [NSString stringWithFormat: NSLocalizedString(@"Date: %@, Category: %@", nil),
                       [dateFormatter stringFromDate:[item date]],
-                      (![item category] ? @"None" : [item category])];
+                      (![item category] ? NSLocalizedString(@"None", nil) : [item category])];
     
     [[(MSJsonItemCell*)cell titleLabel] setText:[item title]];
     [[(MSJsonItemCell*)cell descLabel] setText:[item desc]];

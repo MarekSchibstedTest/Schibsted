@@ -29,6 +29,10 @@
                                                         [UIColor cloudsColor],
                                                         UITextAttributeTextColor, nil]
                                              forState: UIControlStateHighlighted];
+    
+    [UIBarButtonItem configureFlatButtonsWithColor:[UIColor peterRiverColor]
+                                  highlightedColor:[UIColor belizeHoleColor]
+                                      cornerRadius:3];
 }
 
 + (UIColor*)navigationBarBackgroundColor
@@ -55,11 +59,6 @@
                                                                       style: UIBarButtonItemStylePlain
                                                                      target: target
                                                                      action: action];
-    
-    [UIBarButtonItem configureFlatButtonsWithColor:[UIColor peterRiverColor]
-                                  highlightedColor:[UIColor belizeHoleColor]
-                                      cornerRadius:3];
-    
     return barButtonItem;
 }
 

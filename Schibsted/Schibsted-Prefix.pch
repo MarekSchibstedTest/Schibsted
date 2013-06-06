@@ -9,6 +9,8 @@
 #endif
 
 #ifdef __OBJC__
+    #import <CoreData/CoreData.h>
+    #import "ObjectiveRecord.h"
     #import <UIKit/UIKit.h>
     #import <Foundation/Foundation.h>
 #endif
